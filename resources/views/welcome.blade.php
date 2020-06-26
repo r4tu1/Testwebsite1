@@ -85,10 +85,10 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    
+                    <a href="{{url('/')}}">Home</a>
+                    <a href="{{URL::to('Contact')}}">Contact</a>
+                    <a href="{{URL::to('Service')}}">Services</a>
+                    <a href="{{URL::to('/About')}}">about</a>
                 </div>
             </div>
         </div>

@@ -81,11 +81,11 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    About page  
+                    service  page  
                 </div>
 
                 <div class="links">
-               
+                   
                     <a href="{{url('/')}}">Home</a>
                    
                 </div>

@@ -26,6 +26,13 @@ Route::get('Service', function () {
 });
 
 Route::get('Contact','ContactController@contact');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+//category
+Route::get('Category/All','CategoryController@AllCat')->name('all.category');
+//form submit rout in Catagory
+Route::post('Category/Add','CategoryController@AddCat')->name('store.category');

@@ -36,3 +36,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('Category/All','CategoryController@AllCat')->name('all.category');
 //form submit rout in Catagory
 Route::post('Category/Add','CategoryController@AddCat')->name('store.category');
+//Edit or delet catagory
+Route::get('Category/Edit/{id}','CategoryController@Edit');
+Route::post('Store/Category/{id}','CategoryController@update');

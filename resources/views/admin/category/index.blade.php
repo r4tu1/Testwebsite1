@@ -18,7 +18,14 @@
                             {{ session('status') }}
                         </div>
                     @endif--}}
-
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{session('success')}}</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    @endif
 
                     <table class="table">
                         <thead>
@@ -27,27 +34,37 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Created At</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @php ($i = 1)
-                      
-                       
-                        
+                          
+                            @foreach ($categories as $category)
+                                                                            
                 
                         <tr>
-                        <th scope="row">{{$i++}}</th>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                            <th scope="row">{{$categories->firstItem()+$loop->index}}</th>
+                            <td>{{$category->category_name}}</td>
+                            <td>{{$category->name}}</td>
+                            <td>
+                                @if ($category->created_at == NULL)
+                                <span>Time Unavailable</span>                                    
+                                @else
+                                 {{Carbon\Carbon::parse($category->created_at) -> diffForHumans()}}
+                              {{-- {{($category->created_at) -> diffForHumans()}}</td>--}}
+
+                                @endif
+                            </td>
+                            <td>
+                            <a href="{{url('Category/Edit/'.$category->id)}}" class="btn btn-primary">Edit</a>
+                                <a href="" class="btn btn-danger">Delet</a>
+                            </td>
                         </tr>
-
+                        @endforeach
                        
-
-                            
-                        </tbody>
+                         </tbody>
                     </table>
-                    
+                    {{$categories->links()}}
                 </div>
             </div>
         </div>
@@ -64,6 +81,10 @@
                             {{ session('status') }}
                         </div>
                     @endif--}}
+                    
+                    
+
+
                     <form action="{{route('store.category')}}" method="POST">
                      @csrf
                         <div class="form-group">

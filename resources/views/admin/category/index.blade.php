@@ -32,7 +32,7 @@
                             <tr>
                                 <th scope="col">Sl no</th>
                                 <th scope="col">Name</th>
-                                <th scope="col">Email</th>
+                                <th scope="col">Added by</th>
                                 <th scope="col">Created At</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -45,19 +45,19 @@
                         <tr>
                             <th scope="row">{{$categories->firstItem()+$loop->index}}</th>
                             <td>{{$category->category_name}}</td>
-                            <td>{{$category->name}}</td>
+                            <td>{{$category->user->name}}</td>
                             <td>
                                 @if ($category->created_at == NULL)
                                 <span>Time Unavailable</span>                                    
                                 @else
-                                 {{Carbon\Carbon::parse($category->created_at) -> diffForHumans()}}
-                              {{-- {{($category->created_at) -> diffForHumans()}}</td>--}}
+                                 {{-- {{Carbon\Carbon::parse($category->created_at) -> diffForHumans()}} --}}
+                              {{($category->created_at) -> diffForHumans()}}</td>
 
                                 @endif
                             </td>
                             <td>
                             <a href="{{url('Category/Edit/'.$category->id)}}" class="btn btn-primary">Edit</a>
-                                <a href="" class="btn btn-danger">Delet</a>
+                                <a href="" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -68,6 +68,10 @@
                 </div>
             </div>
         </div>
+
+
+        
+
         <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Add Category
@@ -89,7 +93,12 @@
                      @csrf
                         <div class="form-group">
                           <label for="exampleInputEmail1">Add Category</label>
-                          <input type="text" name="category_name" class="form-control @error('category_name') is-invalid @enderror" id="exampleInputEmail1" 
+                          <input type="text" name="category_name" class="form-control
+                          
+                          @error('category_name') is-invalid
+                          
+                          @enderror
+                          "id="exampleInputEmail1" 
                           aria-describedby="emailHelp" placeholder="Enter Category">
                             
                           @error('category_name')
@@ -104,6 +113,88 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Trash list
+
+                </div>
+                
+
+                <div class="card-body">
+                      {{--@if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif--}}
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{session('success')}}</strong> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    @endif
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Sl no</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Created At</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          
+                            @foreach ($trashCat as $category)
+                                                                            
+                
+                        <tr>
+                            <th scope="row">{{$trashCat->firstItem()+$loop->index}}</th>
+                            <td>{{$category->category_name}}</td>
+                            <td>{{$category->name}}</td>
+                            <td>
+                                @if ($category->created_at == NULL)
+                                <span>Time Unavailable</span>                                    
+                                @else
+                                 {{-- {{Carbon\Carbon::parse($category->created_at) -> diffForHumans()}} --}}
+                              {{($category->created_at) -> diffForHumans()}}</td>
+
+                                @endif
+                            </td>
+                            <td>
+                            <a href="{{url('Category/Edit/'.$category->id)}}" class="btn btn-primary">Edit</a>
+                                <a href="{{url('softdelete/category/'.$category->id)}}" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                       
+                         </tbody>
+                    </table>
+                    {{$trashCat->links()}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 </div>
 @endsection

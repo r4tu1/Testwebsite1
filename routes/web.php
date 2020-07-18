@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +40,6 @@ Route::post('Category/Add','CategoryController@AddCat')->name('store.category');
 //Edit or delet catagory
 Route::get('Category/Edit/{id}','CategoryController@Edit');
 Route::post('Store/Category/{id}','CategoryController@update');
+
+//trashRout(softdelete)
+Route::get('softdelete/category/[id}','CategoryController@SoftDelete');

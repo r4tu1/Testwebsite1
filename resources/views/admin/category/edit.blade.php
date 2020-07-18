@@ -25,15 +25,18 @@
                      @csrf
                         <div class="form-group">
                           <label for="exampleInputEmail1">Update Category</label>
-                          <input type="text" name="category_name" class="form-control @error('category_name') is-invalid @enderror" id="exampleInputEmail1" 
-                        aria-describedby="emailHelp" value="{{$categories->category_name}}">
+                          <input type="text" name="category_name" class="form-control
+                          
+                          
+                          @error('category_name') is-invalid @enderror" id="exampleInputEmail1" 
+                            aria-describedby="emailHelp" value="{{$categories->category_name}}">
                             
                           @error('category_name')
                           <span class="text-danger">{{$message}}</span>
                           @enderror  
                         </div>
                         
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                       </form>
 
             

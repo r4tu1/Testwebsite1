@@ -13,13 +13,18 @@ use PhpParser\Node\Stmt\Return_;
 class CategoryController extends Controller
 {
     public function AllCat(){
-        //EloquentORM 
-        //$categories = Category::latest()->paginate(4);
-        //querybuilder
-        $categories = DB::table('categories')->join('users','categories.user_id','users.id')
-        ->select('categories.*','users.name')->paginate(4);
+
+        // // EloquentORM 
+        $categories = Category::latest()->paginate(4);
+
+
+
+        // //querybuilder
+        // $categories = DB::table('categories')->join('users','categories.user_id','users.id')
+        // ->select('categories.*','users.name')->paginate(4);
         
-        return view('admin.category.index',compact('categories'));
+        $trashCat = Category::onlyTrashed()->latest()->paginate(3);
+        return view('admin.category.index',compact('categories','trashCat'));
     }
 
     public function AddCat(Request $request){
@@ -76,7 +81,7 @@ class CategoryController extends Controller
                 'category_name.max' => 'Category name less then 20 charecter'  
 
                 ]);
-//ORM
+//
 
         // $update = Category::find($id)->update([
 
@@ -94,6 +99,30 @@ class CategoryController extends Controller
 
         
         return Redirect()->route('all.category')->with('success','Category Updated'); 
+
+
+
+
+
+        }
+
+
+
+    //soft delete
+    public function SoftDelete($id){
+        $delete = Category::find($id)->delete();
+        return Redirect()->back()->with('success','Category Deleted'); 
+
+
     }
+        
+    
+
+
+
+
+
+
+
 
 }
